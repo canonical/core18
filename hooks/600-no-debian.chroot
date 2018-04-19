@@ -35,3 +35,6 @@ rm -f var/log/bootstrap.log \
 rm -f /etc/cron.daily/dpkg \
       /etc/cron.daily/passwd
     
+
+# and kill the _apt user
+deluser _apt
