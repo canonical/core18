@@ -1,0 +1,59 @@
+#!/bin/sh -ex
+
+echo "Create snapd generator"
+F=/lib/systemd/system-generators/snapd-service-socket-generator
+cat >"$F" <<'EOF'
+#!/bin/sh -e
+#
+# FIXME: convert to a C binary?
+
+# FIXME: there must be a better way to inspect what a generator
+#        is doing
+logfile=/run/snapd-service-socket-generator.log
+exec >> $logfile 2>&1
+#echo "env: $(set)"
+#echo "run from: $0"
+#echo "pwd: $(pwd)"
+
+
+echo "Creating snapd service/socket file"
+
+# we need to use the internal path as this runs before any mount
+# unit has run but /writable is mounted by initramfs
+SNAPD_CURRENT_PATH=/writable/system-data/snap/snapd/current
+if [ ! -e "$SNAPD_CURRENT_PATH" ]; then
+    echo "No current snapd snap found"
+    # FIXME: seed system
+    # FIXME2: try to find any snapd snap if system is already seeded
+    exit 1
+fi
+
+echo "Extract the snapd systemd units"
+TMPD=/run/tmp.snapd-service-socket-generator
+trap "rm -rf $TMPD" EXIT
+SNAPD_REV=$(readlink "$SNAPD_CURRENT_PATH")
+if [ -z "$SNAPD_REV" ]; then
+    echo "cannot find snapd revision"
+    exit 1
+fi
+SNAPD_SNAP=/writable/system-data/var/lib/snapd/snaps/snapd_"$SNAPD_REV".snap
+if [ ! -e "$SNAPD_SNAP" ]; then
+    echo "cannot find $SNAPD_SNAP"
+    exit 1
+fi
+unsquashfs -f -d $TMPD $SNAPD_SNAP lib/systemd/system/snapd.socket lib/systemd/system/snapd.service
+
+echo "Update the snapd ExecStart path"
+sed -i "s#ExecStart=/usr/lib/snapd/snapd#ExecStart=/snap/snapd/$SNAPD_REV/usr/lib/snapd/snapd#" $TMPD/lib/systemd/system/snapd.service
+cp -a $TMPD/lib/systemd/system/* "$1"
+
+echo "Creating the snapd.service enable symlink"
+mkdir -p "$1"/multi-user.target.wants
+ln -s ../snapd.service "$1"/multi-user.target.wants/snapd.service
+
+EOF
+chmod +x "$F"
+
+
+echo "Creating the snap binary symlink"
+ln -s /snap/snapd/current/usr/bin/snap /usr/bin/snap
