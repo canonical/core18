@@ -13,9 +13,9 @@ if [ "$(dpkg --print-architecture)" != "amd64" ]; then
     exit 0
 fi
 
-diff -u \
-     <(tail -n +6 prime/usr/share/snappy/dpkg.list|awk '{print $2}'|sort) \
-     <(cat <<EOF
+DIFF=$(comm -1 -3 \
+         <(tail -n +6 prime/usr/share/snappy/dpkg.list|awk '{print $2}'|sort) \
+         <(cat <<EOF
 adduser
 apparmor
 apt
@@ -164,4 +164,12 @@ udev
 util-linux
 zlib1g:amd64
 EOF
-     )
+        ))
+
+if [ -n "$DIFF" ]; then
+    echo "Error! The following packages are missing from the system:"
+    echo "$DIFF"
+    echo "If that is intentional, please update the package list in the"
+    echo "test_pkg_removal.sh test."
+    exit 1
+fi
