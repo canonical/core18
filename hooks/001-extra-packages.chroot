@@ -25,6 +25,7 @@ apt install --no-install-recommends -y \
     dbus \
     apparmor \
     netplan.io \
+    net-tools \
     ca-certificates \
     squashfs-tools \
     console-conf \
