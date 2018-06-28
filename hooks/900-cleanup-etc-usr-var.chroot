@@ -47,6 +47,13 @@ rm -f /etc/mke2fs.conf
 # python deb install leftovers
 rm -rf /usr/local/lib/python*
 
+# we don't want any manpages or documentation
+rm -rf /usr/share/man /usr/share/groff /usr/share/info \
+       /usr/share/lintian /usr/share/linda /var/cache/man
+
+# clean up unneeded empty directories in docs
+find binary/boot/filesystem.dir/usr/share/doc -empty  -print0 | xargs -0 rmdir || true
+
 # we have no cron daily jobs
 rmdir /etc/cron.daily
 
