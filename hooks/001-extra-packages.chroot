@@ -33,3 +33,10 @@ apt install --no-install-recommends -y \
     console-conf \
     cloud-init
 
+
+# Install libuuid1 fix, see https://launchpad.net/bugs/1783810
+# This can be removed once LP#1783810 is fixed.
+echo "deb http://archive.ubuntu.com/ubuntu bionic-proposed main" > /etc/apt/sources.list.d/lp1783810.list
+apt update
+apt install --only-upgrade libuuid1
+rm  /etc/apt/sources.list.d/lp1783810.list
