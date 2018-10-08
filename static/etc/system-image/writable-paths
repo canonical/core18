@@ -45,7 +45,7 @@
 /var/lib/misc                           auto                    persistent  transition  none
 /var/lib/sudo                           auto                    temporary   none        defaults,mode=0700
 /var/log                                auto                    persistent  transition  none
-
+/var/log/journal                        auto                    persistent  transition  none
 /var/lib/console-conf                   auto                    persistent  transition  none
 /var/cache/apparmor                     auto                    persistent  transition  none
 /var/lib/apparmor                       auto                    persistent  transition  none
