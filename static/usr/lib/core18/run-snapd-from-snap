@@ -20,6 +20,12 @@ run_on_unseeded() {
     TMPD=$(mktemp -d)
     trap "umount $TMPD; rmdir $TMPD" EXIT
     mount "$SEED_SNAPD" "$TMPD"
+
+    # Show progress on the console while seeding. console-conf
+    # will only come up after this unit is finished so without
+    # this users will look at a blank screen for a long time.
+    (sleep 1 ; "$TMPD"/usr/bin/snap watch --last=seed 2>&1 | tee -a /dev/console )&
+
     # snapd will write all the needed snapd.{service,socket}
     # units and restart once it seeded the snapd snap
     "$TMPD"/usr/lib/snapd/snapd
