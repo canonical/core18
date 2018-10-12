@@ -1,0 +1,35 @@
+#! /bin/sh -ex
+#
+# create delta tarball for classic shell
+
+echo "I: Creating delta tarball for use with classic shell"
+
+# create a classic tarball
+mkdir -p var/lib/classic
+apt-get clean
+apt-get -y install --reinstall -d apt locales base-files libapt-inst2.0 libapt-pkg5.0 ubuntu-keyring lsb-release
+cp /var/cache/apt/archives/*.deb var/cache/apt/archives/
+
+tar czvf var/lib/classic/classic-diff.tgz \
+     usr/bin/dpkg* \
+     var/lib/dpkg \
+     etc/alternatives \
+     var/cache/apt/archives/*.deb
+
+cat << EOF > var/lib/classic/enable.sh
+#! /bin/sh
+
+set -e
+
+rm -f /usr/local/bin/* /etc/apt/sources.list.d/*
+
+tar xf /var/lib/classic/classic-diff.tgz -C /
+
+dpkg -i /var/cache/apt/archives/*.deb
+dpkg -i --force-confask --force-confnew /var/cache/apt/archives/base-files*.deb
+
+apt-get clean
+apt-get update
+EOF
+
+chmod +x var/lib/classic/enable.sh
