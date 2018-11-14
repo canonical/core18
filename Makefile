@@ -49,6 +49,10 @@ test:
 	set -ex; for f in ./tests/abi/*.sh; do \
 		$$f; \
 	done;
+	# run final tests on the prime dir
+	set -ex; for f in ./tests/final/*.sh; do \
+		$$f; \
+	done;
 
 # Display a report of files that are (still) present in /etc
 .PHONY: etc-report
