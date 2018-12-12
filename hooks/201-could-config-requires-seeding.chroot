@@ -1,0 +1,21 @@
+#!/bin/sh
+
+set -e
+
+echo "Fix cloud-config systemd unit to run after core18 firstboot"
+
+# On a core18 system on a first boot we do not have a "snapd.seeded.service"
+# because we only boot from a pristine core18 snap which does not include
+# any snapd units. The snapd.seeded unit gets created during the seeding.
+#
+#This means that systemd will ignore the "After=snapd.seeding" on bootup
+#in cloud-config because at this point it does not know about the unit
+#and when it gets added it will (AFAIK) not re-eval the dependency chain.
+#
+# To ensure that cloud-config does not start too early we add a sync point
+# with core18.start-snapd.service which is part of the core18 snap and which
+# will block until the system is fully seeded.
+p="/lib/systemd/system/cloud-config.service"
+sed -i 's/After=snapd.seeded.service/After=snapd.seeded.service core18.start-snapd.service/' "$p"
+# ensure sed worked
+grep "^After=snapd.seeded.service core18.start-snapd.service" "$p"
