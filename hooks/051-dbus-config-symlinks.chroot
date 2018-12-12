@@ -1,0 +1,7 @@
+#!/bin/sh -ex
+
+echo "Creating D-Bus configuration file symlinks"
+mkdir -p /usr/share/dbus-1/session.d
+ln -s /snap/snapd/current/usr/share/dbus-1/session.d/snap-session.conf /usr/share/dbus-1/session.d/snap-session.conf
+mkdir -p /usr/share/dbus-1/system.d
+ln -s /snap/snapd/current/usr/share/dbus-1/system.d/snap-system.conf /usr/share/dbus-1/system.d/snap-system.conf
