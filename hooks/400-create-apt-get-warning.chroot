@@ -1,0 +1,15 @@
+#!/bin/sh -ex
+
+echo "I: Creating warning to use snappy when apt-get is used"
+
+mkdir -p /usr/local/bin
+cat >/usr/local/bin/no-apt <<EOF
+#!/bin/sh
+echo "Ubuntu Core does not use apt-get, see 'snap --help'!"
+exit 1
+EOF
+chmod 755 /usr/local/bin/no-apt
+
+for cmd in apt apt-cache apt-get; do
+    ln -s no-apt /usr/local/bin/$cmd
+done
