@@ -21,7 +21,7 @@ parts:
     # and prime anyway.
     override-pull: |
       unset LD_LIBRARY_PATH;
-      snapcraftctl set-version "$(/bin/date +%Y%M%d)"
+      snapcraftctl set-version "$(/bin/date +%Y%m%d)"
       snapcraftctl pull
     override-stage: |
       unset LD_LIBRARY_PATH;
