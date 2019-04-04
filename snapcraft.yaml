@@ -1,5 +1,6 @@
 name: core18
-version: 18
+# version: 18
+adopt-info: boostrap
 summary: Runtime environment based on Ubuntu 18.04
 description: |
   The base snap based on the Ubuntu 18.04 release.
@@ -18,6 +19,10 @@ parts:
     # in the part's install directory which binaries can be incompatible with
     # the ones running on our system.  We don't need those while running stage
     # and prime anyway.
+    override-pull: |
+      unset LD_LIBRARY_PATH;
+      snapcraftctl set-version "$(/bin/date +%Y%m%d)"
+      snapcraftctl pull
     override-stage: |
       unset LD_LIBRARY_PATH;
       export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin"
