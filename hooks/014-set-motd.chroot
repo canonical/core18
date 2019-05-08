@@ -23,3 +23,6 @@ rm /etc/update-motd.d/10-help-text
 
 # remove the motd-news service files
 rm /lib/systemd/system/motd-news.{service,timer}
+
+# diable dynamic motd
+sed -i 's/ENABLED=1/ENABLED=0/g' /etc/default/motd-news
