@@ -41,6 +41,7 @@ apt install --no-install-recommends -y \
     tzdata \
     openssh-server \
     iproute2 \
+    iptables \
     kmod \
     udev \
     sudo \
