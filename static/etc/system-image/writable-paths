@@ -12,7 +12,7 @@
 # snappy security policy, etc
 /var/lib/snapd                         auto                     persistent  transition  none
 # snap catalogue (sections, pkgnames)
-/var/cache/snapd                        auto                    persistent  transition  none
+/var/cache                              auto                    persistent  transition  none
 # snap data
 /var/snap                               auto                    persistent  transition  none
 # generic
@@ -47,7 +47,6 @@
 /var/log                                auto                    persistent  transition  none
 
 /var/lib/console-conf                   auto                    persistent  transition  none
-/var/cache/apparmor                     auto                    persistent  transition  none
 /var/lib/apparmor                       auto                    persistent  transition  none
 /var/lib/dbus                           auto                    persistent  none        none
 /var/lib/dhcp                           auto                    persistent  none        none
