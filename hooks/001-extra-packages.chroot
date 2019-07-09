@@ -38,6 +38,7 @@ apt install --no-install-recommends -y \
     libpam-systemd \
     libpam-modules \
     distro-info-data \
+    dmsetup \
     tzdata \
     openssh-server \
     iproute2 \
