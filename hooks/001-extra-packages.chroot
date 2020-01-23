@@ -59,6 +59,7 @@ apt install --no-install-recommends -y \
     rfkill \
     wpasupplicant \
     cloud-init \
+    pollinate \
     dosfstools
 
 # since we installed what we wanted, let's get rid of the extra gnupg and all
