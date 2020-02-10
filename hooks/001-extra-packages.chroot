@@ -47,6 +47,7 @@ apt install --no-install-recommends -y \
     udev \
     sudo \
     less \
+    bash-completion \
     dbus \
     vim-tiny \
     netcat-openbsd \
