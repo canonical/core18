@@ -1,0 +1,6 @@
+#! /bin/sh
+
+set -e
+
+echo "create a persistent link for .disk/info" >&2
+ln -sf /writable/.disk /.disk
