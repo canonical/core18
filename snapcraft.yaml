@@ -14,6 +14,10 @@ parts:
     build-packages:
       - shellcheck
       - wget
+    # XXX: snapcraft by default doesn't stage hidden (.) files and directories,
+    # so we need to explicitly list the .disk file for it to get staged/primed.
+    stage: [ .disk, ./* ]
+    prime: [ .disk, ./* ]
     # XXX: Dirty hacks to enable building core18 on non-bionic systems.
     # Without these overrides both the PATH and LD_LIBRARY_PATH contain paths
     # in the part's install directory which binaries can be incompatible with
