@@ -1,0 +1,8 @@
+#!/bin/sh
+
+set -e
+
+if [ -n "$(find run/ -type f)" ]; then
+    echo "/run must be empty in the image"
+    exit 1
+fi
