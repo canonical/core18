@@ -38,6 +38,7 @@ e2fsprogs
 fdisk
 findutils
 gcc-8-base:amd64
+gdbserver
 gpgv
 grep
 gzip

@@ -2,4 +2,6 @@
 
 set -e
 
-echo "" > /etc/resolv.conf
+rm -f /etc/resolv.conf
+
+ln -sf ../run/systemd/resolve/stub-resolv.conf /etc/resolv.conf

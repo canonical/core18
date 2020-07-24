@@ -67,3 +67,6 @@ mkdir -p /usr/local/share/fonts
 rm -rf /var/cache/debconf
 
 # FIXME: make /etc/lsb-release point to ../usr/lib/lsb-release
+
+# drop all of /run, it must be empty before boot
+rm -rf /run/*
