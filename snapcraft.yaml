@@ -1,14 +1,14 @@
 name: core18
-# version: 18
-adopt-info: boostrap
+adopt-info: bootstrap
 summary: Runtime environment based on Ubuntu 18.04
 description: |
   The base snap based on the Ubuntu 18.04 release.
 confinement: strict
 type: base
+build-base: core18
 
 parts:
-  boostrap:
+  bootstrap:
     plugin: make
     source: .
     build-packages:
@@ -16,8 +16,8 @@ parts:
       - wget
     # XXX: snapcraft by default doesn't stage hidden (.) files and directories,
     # so we need to explicitly list the .disk file for it to get staged/primed.
-    stage: [ .disk, ./* ]
-    prime: [ .disk, ./* ]
+    stage: [.disk, ./*]
+    prime: [.disk, ./*]
     # XXX: Dirty hacks to enable building core18 on non-bionic systems.
     # Without these overrides both the PATH and LD_LIBRARY_PATH contain paths
     # in the part's install directory which binaries can be incompatible with
