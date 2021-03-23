@@ -1,11 +1,29 @@
-language: python
+language: minimal
 os: linux
-dist: xenial
+dist: bionic
 sudo: enabled
+addons:
+  snaps:
+    - name: snapcraft
+      confinement: classic
+    - name: lxd
+env:
+  global:
+    - LC_ALL=C.UTF-8
+    - LANG=C.UTF-8
+    # we could build natively w/o using lxd since travis supports bionic as a
+    # "dist", but since core18 devs may want to build local versions on systems
+    # other than bionic they will want to use lxd, so using it here makes sure
+    # that continues to work
+    - SNAPCRAFT_BUILD_ENVIRONMENT=lxd
+
+install:
+  - sudo apt-get remove lxd-client lxc -y
+  - sudo apt-get autoremove
+  - sudo /snap/bin/lxd init --auto
+  - sudo usermod --append --groups lxd $USER
+
 script:
-  - sudo apt-get update
-  - sudo apt-get install --yes --no-install-recommends snapd
-  - sudo snap wait system seed.loaded
-  - sudo snap install --classic snapcraft
-  - sudo snapcraft --destructive-mode
+  - sg lxd 'snapcraft'
+  - sudo unsquashfs -d prime core18*.snap
   - make test
