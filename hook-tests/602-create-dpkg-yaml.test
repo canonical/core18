@@ -25,232 +25,246 @@ else
 fi
 
 #third check the Packages section of dpkg.yaml
-packages_section=$(cat <<EOF
-packages:
-- adduser=3.116ubuntu1
-- apparmor=2.12-4ubuntu5.1
-- apt=1.6.14
-- base-files=10.1ubuntu2.10
-- base-passwd=3.5.44
-- bash=4.4.18-2ubuntu1.2
-- bash-completion=1:2.8-1ubuntu1
-- bsdutils=1:2.31.1-0.4ubuntu3.7
-- bzip2=1.0.6-8.1ubuntu0.2
-- ca-certificates=20210119~18.04.1
-- cloud-guest-utils=0.30-0ubuntu5
-- cloud-init=21.2-3-g899bfaa9-0ubuntu2~18.04.1
-- console-conf=0.0.29+18.04.2
-- coreutils=8.28-1ubuntu1
-- dash=0.5.8-2.10
-- dbus=1.12.2-1ubuntu1.2
-- debconf=1.5.66ubuntu1
-- debianutils=4.8.4
-- diffutils=1:3.6-1
-- dirmngr=2.2.4-1ubuntu1.4
-- distro-info-data=0.37ubuntu0.11
-- dmsetup=2:1.02.145-4.1ubuntu3.18.04.3
-- dosfstools=4.1-1
-- dpkg=1.19.0.5ubuntu2.3
-- e2fsprogs=1.44.1-1ubuntu1.3
-- fdisk=2.31.1-0.4ubuntu3.7
-- finalrd=6~ubuntu18.04.1
-- findutils=4.6.0+git+20170828-2
-- gcc-8-base:amd64=8.4.0-1ubuntu1~18.04
-- gcc-8-base:i386=8.4.0-1ubuntu1~18.04
-- gdbserver=8.1.1-0ubuntu1
-- gpg-agent=2.2.4-1ubuntu1.4
-- gpgv=2.2.4-1ubuntu1.4
-- grep=3.1-2build1
-- gzip=1.6-5ubuntu1.1
-- hostname=3.20
-- init-system-helpers=1.51
-- iproute2=4.15.0-2ubuntu1.3
-- iptables=1.6.1-2ubuntu2
-- iputils-ping=3:20161105-1ubuntu3
-- isc-dhcp-client=4.3.5-3ubuntu7.3
-- kmod=24-1ubuntu3.5
-- less=487-0.1
-- libacl1:amd64=2.2.52-3build1
-- libapparmor1:amd64=2.12-4ubuntu5.1
-- libapt-pkg5.0:amd64=1.6.14
-- libargon2-0:amd64=0~20161029-1.1
-- libattr1:amd64=1:2.4.47-2build1
-- libaudit-common=1:2.8.2-1ubuntu1.1
-- libaudit1:amd64=1:2.8.2-1ubuntu1.1
-- libblkid1:amd64=2.31.1-0.4ubuntu3.7
-- libbsd0:amd64=0.8.7-1ubuntu0.1
-- libbz2-1.0:amd64=1.0.6-8.1ubuntu0.2
-- libc-bin=2.27-3ubuntu1.4
-- libc6:amd64=2.27-3ubuntu1.4
-- libc6:i386=2.27-3ubuntu1.4
-- libcap-ng0:amd64=0.7.7-3.1
-- libcap2:amd64=1:2.25-1.2
-- libcom-err2:amd64=1.44.1-1ubuntu1.3
-- libcryptsetup12:amd64=2:2.0.2-1ubuntu1.2
-- libdb5.3:amd64=5.3.28-13.1ubuntu1.1
-- libdbus-1-3:amd64=1.12.2-1ubuntu1.2
-- libdebconfclient0:amd64=0.213ubuntu1
-- libdevmapper1.02.1:amd64=2:1.02.145-4.1ubuntu3.18.04.3
-- libdns-export1100=1:9.11.3+dfsg-1ubuntu1.15
-- libedit2:amd64=3.1-20170329-1
-- libelf1:amd64=0.170-0.4ubuntu0.1
-- libexpat1:amd64=2.2.5-3ubuntu0.2
-- libext2fs2:amd64=1.44.1-1ubuntu1.3
-- libfdisk1:amd64=2.31.1-0.4ubuntu3.7
-- libffi6:amd64=3.2.1-8
-- libgcc1:amd64=1:8.4.0-1ubuntu1~18.04
-- libgcc1:i386=1:8.4.0-1ubuntu1~18.04
-- libgcrypt20:amd64=1.8.1-4ubuntu1.2
-- libglib2.0-0:amd64=2.56.4-0ubuntu0.18.04.8
-- libgmp10:amd64=2:6.1.2+dfsg-2
-- libgnutls30:amd64=3.5.18-1ubuntu1.4
-- libgpg-error0:amd64=1.27-6
-- libgssapi-krb5-2:amd64=1.16-2ubuntu0.2
-- libhogweed4:amd64=3.4.1-0ubuntu0.18.04.1
-- libidn11:amd64=1.33-2.1ubuntu1.2
-- libidn2-0:amd64=2.0.4-1.1ubuntu0.2
-- libip4tc0:amd64=1.6.1-2ubuntu2
-- libip6tc0:amd64=1.6.1-2ubuntu2
-- libiptc0:amd64=1.6.1-2ubuntu2
-- libisc-export169:amd64=1:9.11.3+dfsg-1ubuntu1.15
-- libjson-c3:amd64=0.12.1-1.3ubuntu0.3
-- libk5crypto3:amd64=1.16-2ubuntu0.2
-- libkeyutils1:amd64=1.5.9-9.2ubuntu2
-- libkmod2:amd64=24-1ubuntu3.5
-- libkrb5-3:amd64=1.16-2ubuntu0.2
-- libkrb5support0:amd64=1.16-2ubuntu0.2
-- libldap-common=2.4.45+dfsg-1ubuntu1.10
-- liblz4-1:amd64=0.0~r131-2ubuntu3.1
-- liblzma5:amd64=5.2.2-1.3
-- liblzo2-2:amd64=2.08-1.2
-- libmnl0:amd64=1.0.4-2
-- libmount1:amd64=2.31.1-0.4ubuntu3.7
-- libmpdec2:amd64=2.4.2-1ubuntu1
-- libncurses5:amd64=6.1-1ubuntu1.18.04
-- libncursesw5:amd64=6.1-1ubuntu1.18.04
-- libnetfilter-conntrack3:amd64=1.0.6-2
-- libnetplan0:amd64=0.99-0ubuntu3~18.04.4
-- libnettle6:amd64=3.4.1-0ubuntu0.18.04.1
-- libnfnetlink0:amd64=1.0.1-3
-- libnl-3-200:amd64=3.2.29-0ubuntu3
-- libnl-genl-3-200:amd64=3.2.29-0ubuntu3
-- libnl-route-3-200:amd64=3.2.29-0ubuntu3
-- libnss-extrausers=0.6-4
-- libp11-kit0:amd64=0.23.9-2ubuntu0.1
-- libpam-modules:amd64=1.1.8-3.6ubuntu2.18.04.3
-- libpam-modules-bin=1.1.8-3.6ubuntu2.18.04.3
-- libpam-runtime=1.1.8-3.6ubuntu2.18.04.3
-- libpam-systemd:amd64=237-3ubuntu10.51
-- libpam0g:amd64=1.1.8-3.6ubuntu2.18.04.3
-- libpcre3:amd64=2:8.39-9
-- libpcsclite1:amd64=1.8.23-1
-- libprocps6:amd64=2:3.3.12-3ubuntu1.2
-- libpython3-stdlib:amd64=3.6.7-1~18.04
-- libpython3.6-minimal:amd64=3.6.9-1~18.04ubuntu1.4
-- libpython3.6-stdlib:amd64=3.6.9-1~18.04ubuntu1.4
-- libreadline7:amd64=7.0-3
-- libseccomp2:amd64=2.5.1-1ubuntu1~18.04.1
-- libselinux1:amd64=2.7-2build2
-- libsemanage-common=2.7-2build2
-- libsemanage1:amd64=2.7-2build2
-- libsepol1:amd64=2.7-1
-- libsmartcols1:amd64=2.31.1-0.4ubuntu3.7
-- libsqlite3-0:amd64=3.22.0-1ubuntu0.4
-- libss2:amd64=1.44.1-1ubuntu1.3
-- libssl1.0.0:amd64=1.0.2n-1ubuntu5.6
-- libssl1.1:amd64=1.1.1-1ubuntu2.1~18.04.10
-- libstdc++6:amd64=8.4.0-1ubuntu1~18.04
-- libsystemd0:amd64=237-3ubuntu10.51
-- libtasn1-6:amd64=4.13-2
-- libtinfo5:amd64=6.1-1ubuntu1.18.04
-- libudev1:amd64=237-3ubuntu10.51
-- libunistring2:amd64=0.9.9-0ubuntu2
-- libuuid1:amd64=2.31.1-0.4ubuntu3.7
-- libwrap0:amd64=7.6.q-27
-- libxtables12:amd64=1.6.1-2ubuntu2
-- libyaml-0-2:amd64=0.1.7-2ubuntu3
-- libzstd1:amd64=1.3.3+dfsg-2ubuntu1.2
-- login=1:4.5-1ubuntu2
-- lsb-base=9.20170808ubuntu1
-- mawk=1.3.3-17ubuntu3
-- mime-support=3.60ubuntu1
-- mount=2.31.1-0.4ubuntu3.7
-- multiarch-support=2.27-3ubuntu1.4
-- ncurses-base=6.1-1ubuntu1.18.04
-- ncurses-bin=6.1-1ubuntu1.18.04
-- netcat-openbsd=1.187-1ubuntu0.1
-- netplan.io=0.99-0ubuntu3~18.04.4
-- openssh-client=1:7.6p1-4ubuntu0.5
-- openssh-server=1:7.6p1-4ubuntu0.5
-- openssh-sftp-server=1:7.6p1-4ubuntu0.5
-- openssl=1.1.1-1ubuntu2.1~18.04.10
-- passwd=1:4.5-1ubuntu2
-- perl-base=5.26.1-6ubuntu0.5
-- probert=0.0.14.2~18.04.1~ppa1
-- procps=2:3.3.12-3ubuntu1.2
-- python3=3.6.7-1~18.04
-- python3-all=3.6.7-1~18.04
-- python3-asn1crypto=0.24.0-1
-- python3-blinker=1.4+dfsg1-0.1
-- python3-certifi=2018.1.18-2
-- python3-cffi-backend=1.11.5-1
-- python3-chardet=3.0.4-1
-- python3-configobj=5.0.6-2
-- python3-cryptography=2.1.4-1ubuntu1.4
-- python3-distutils=3.6.9-1~18.04
-- python3-idna=2.6-1
-- python3-jinja2=2.10-1ubuntu0.18.04.1
-- python3-json-pointer=1.10-1
-- python3-jsonpatch=1.19+really1.16-1fakesync1
-- python3-jsonschema=2.6.0-2
-- python3-jwt=1.5.3+ds1-1
-- python3-lib2to3=3.6.9-1~18.04
-- python3-markupsafe=1.0-1build1
-- python3-minimal=3.6.7-1~18.04
-- python3-netifaces=0.10.4-0.1build4
-- python3-oauthlib=2.0.6-1
-- python3-pkg-resources=39.0.1-2
-- python3-pyudev=0.21.0-1
-- python3-requests=2.18.4-2ubuntu0.1
-- python3-requests-unixsocket=0.1.5-3
-- python3-serial=3.4-2
-- python3-six=1.11.0-2
-- python3-urllib3=1.22-1ubuntu0.18.04.2
-- python3-urwid=2.0.1-2
-- python3-yaml=3.12-1build2
-- python3.6=3.6.9-1~18.04ubuntu1.4
-- python3.6-minimal=3.6.9-1~18.04ubuntu1.4
-- readline-common=7.0-3
-- rfkill=2.31.1-0.4ubuntu3.7
-- sed=4.4-2
-- sensible-utils=0.0.12
-- squashfs-tools=1:4.3-6ubuntu0.18.04.2
-- subiquitycore=0.0.29+18.04.2
-- sudo=1.8.21p2-3ubuntu1.4
-- systemd=237-3ubuntu10.51
-- systemd-sysv=237-3ubuntu10.51
-- sysvinit-utils=2.88dsf-59.10ubuntu1
-- tar=1.29b-2ubuntu0.2
-- tzdata=2021a-0ubuntu0.18.04
-- ubuntu-keyring=2018.09.18.1~18.04.2
-- ucf=3.0038
-- udev=237-3ubuntu10.51
-- util-linux=2.31.1-0.4ubuntu3.7
-- vim-common=2:8.0.1453-1ubuntu1.4
-- vim-tiny=2:8.0.1453-1ubuntu1.4
-- wpasupplicant=2:2.6-15ubuntu2.8
-- xxd=2:8.0.1453-1ubuntu1.4
-- zlib1g:amd64=1:1.2.11.dfsg-0ubuntu2
+pkgs_start=$(( $(awk '/packages:/{ print NR; exit }' $FILE) +1))
+in_yaml_file_pkgs=$(cat <<EOF> in_yaml_file_pkgs.txt
+$(tail -n +$pkgs_start $FILE | awk -F= '{print $1}' | awk -F "- " '{print $NF }')
 EOF
 )
 
-if grep -Fxq "$packages_section" $FILE
-then
+expected_pkgs=$(cat <<EOF> expected_pkgs.txt
+adduser
+apparmor
+apt
+base-files
+base-passwd
+bash
+bash-completion
+bsdutils
+bzip2
+ca-certificates
+cloud-guest-utils
+cloud-init
+console-conf
+coreutils
+dash
+dbus
+debconf
+debianutils
+diffutils
+dirmngr
+distro-info-data
+dmsetup
+dosfstools
+dpkg
+e2fsprogs
+fdisk
+finalrd
+findutils
+gcc-8-base:amd64
+gcc-8-base:i386
+gdbserver
+gpg-agent
+gpgv
+grep
+gzip
+hostname
+init-system-helpers
+iproute2
+iptables
+iputils-ping
+isc-dhcp-client
+kmod
+less
+libacl1:amd64
+libapparmor1:amd64
+libapt-pkg5.0:amd64
+libargon2-0:amd64
+libattr1:amd64
+libaudit-common
+libaudit1:amd64
+libblkid1:amd64
+libbsd0:amd64
+libbz2-1.0:amd64
+libc-bin
+libc6:amd64
+libc6:i386
+libcap-ng0:amd64
+libcap2:amd64
+libcom-err2:amd64
+libcryptsetup12:amd64
+libdb5.3:amd64
+libdbus-1-3:amd64
+libdebconfclient0:amd64
+libdevmapper1.02.1:amd64
+libdns-export1100
+libedit2:amd64
+libelf1:amd64
+libexpat1:amd64
+libext2fs2:amd64
+libfdisk1:amd64
+libffi6:amd64
+libgcc1:amd64
+libgcc1:i386
+libgcrypt20:amd64
+libglib2.0-0:amd64
+libgmp10:amd64
+libgnutls30:amd64
+libgpg-error0:amd64
+libgssapi-krb5-2:amd64
+libhogweed4:amd64
+libidn11:amd64
+libidn2-0:amd64
+libip4tc0:amd64
+libip6tc0:amd64
+libiptc0:amd64
+libisc-export169:amd64
+libjson-c3:amd64
+libk5crypto3:amd64
+libkeyutils1:amd64
+libkmod2:amd64
+libkrb5-3:amd64
+libkrb5support0:amd64
+libldap-common
+liblz4-1:amd64
+liblzma5:amd64
+liblzo2-2:amd64
+libmnl0:amd64
+libmount1:amd64
+libmpdec2:amd64
+libncurses5:amd64
+libncursesw5:amd64
+libnetfilter-conntrack3:amd64
+libnetplan0:amd64
+libnettle6:amd64
+libnfnetlink0:amd64
+libnl-3-200:amd64
+libnl-genl-3-200:amd64
+libnl-route-3-200:amd64
+libnss-extrausers
+libp11-kit0:amd64
+libpam-modules:amd64
+libpam-modules-bin
+libpam-runtime
+libpam-systemd:amd64
+libpam0g:amd64
+libpcre3:amd64
+libpcsclite1:amd64
+libprocps6:amd64
+libpython3-stdlib:amd64
+libpython3.6-minimal:amd64
+libpython3.6-stdlib:amd64
+libreadline7:amd64
+libseccomp2:amd64
+libselinux1:amd64
+libsemanage-common
+libsemanage1:amd64
+libsepol1:amd64
+libsmartcols1:amd64
+libsqlite3-0:amd64
+libss2:amd64
+libssl1.0.0:amd64
+libssl1.1:amd64
+libstdc++6:amd64
+libsystemd0:amd64
+libtasn1-6:amd64
+libtinfo5:amd64
+libudev1:amd64
+libunistring2:amd64
+libuuid1:amd64
+libwrap0:amd64
+libxtables12:amd64
+libyaml-0-2:amd64
+libzstd1:amd64
+login
+lsb-base
+mawk
+mime-support
+mount
+multiarch-support
+ncurses-base
+ncurses-bin
+netcat-openbsd
+netplan.io
+openssh-client
+openssh-server
+openssh-sftp-server
+openssl
+passwd
+perl-base
+probert
+procps
+python3
+python3-all
+python3-asn1crypto
+python3-blinker
+python3-certifi
+python3-cffi-backend
+python3-chardet
+python3-configobj
+python3-cryptography
+python3-distutils
+python3-idna
+python3-jinja2
+python3-json-pointer
+python3-jsonpatch
+python3-jsonschema
+python3-jwt
+python3-lib2to3
+python3-markupsafe
+python3-minimal
+python3-netifaces
+python3-oauthlib
+python3-pkg-resources
+python3-pyudev
+python3-requests
+python3-requests-unixsocket
+python3-serial
+python3-six
+python3-urllib3
+python3-urwid
+python3-yaml
+python3.6
+python3.6-minimal
+readline-common
+rfkill
+sed
+sensible-utils
+squashfs-tools
+subiquitycore
+sudo
+systemd
+systemd-sysv
+sysvinit-utils
+tar
+tzdata
+ubuntu-keyring
+ucf
+udev
+util-linux
+vim-common
+vim-tiny
+wpasupplicant
+xx
+zlib1g:amd64
+EOF
+)
+
+DIFF=$(comm -1 -3 in_yaml_file_pkgs.txt expected_pkgs.txt)
+DIFF1=$(comm -1 -3 expected_pkgs.txt in_yaml_file_pkgs.txt)
+echo $DIFF
+echo $DIFF1
+
+if [ -n "$DIFF" ]; then
   echo "Content of Packages section in dpkg.yaml file is as expected."
 else 
   echo "Error! Packages section of dpkg.yaml not as expected."
+  echo $DIFF
   echo "If that is intentional, please update the packages_section "
   echo "content in the "
   echo "test file: core18/hook-tests/602-create-dpkg-yaml.test."
   exit 1
 fi
+
+# cleanup temp files used for comparisons 
+rm -f expected_pkgs.txt
+rm -f in_yaml_file_pkgs.txt

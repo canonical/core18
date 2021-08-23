@@ -7,7 +7,7 @@ set -ex
 echo "I: Creating dpkg.yaml needed for OSS compliance"
 
 {
-# fill in ppa information in yaml file
+  # fill in ppa information in yaml file
   printf 'package-repositories:\n'
   find /etc/apt/ -name \*.list | while IFS= read -r APT; do
     grep -o "^deb http://ppa.launchpad.net/[a-z0-9\.\+\-]\+/[a-z0-9\.\+\-]\+/[a-z0-9\.\+\-]\+" "$APT" | while read -r ENTRY ; do
@@ -19,7 +19,14 @@ echo "I: Creating dpkg.yaml needed for OSS compliance"
     done
   done
   
-# fill in yaml section with all installed packages
+  # fill in yaml section with all installed packages
+
+  #first compute where the actual packages start in the dpkg.list file
+  #by getting the header line
+  DPKG_LIST_FILE=/usr/share/snappy/dpkg.list
+  pkgs_start=$(( $(awk '/=============================/{ print NR; exit }' $DPKG_LIST_FILE) +1))
+    
   printf 'packages:\n'
-  tail -n +6 /usr/share/snappy/dpkg.list | awk '{printf "- "}{printf $2}{printf "="}{print $3}'
+  tail -n +$pkgs_start /usr/share/snappy/dpkg.list | awk '{printf "- "}{printf $2}{printf "="}{print $3}'
 } > /usr/share/snappy/dpkg.yaml
+
