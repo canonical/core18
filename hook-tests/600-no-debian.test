@@ -1,4 +1,4 @@
-#!/bin/sh -e
+#!/bin/sh
 #
 # test for hook that creates dpkg.yaml used for OSS compliance
 
@@ -24,14 +24,13 @@ else
   exit 1
 fi
 
-#third check the Packages section of dpkg.yaml
 pkgs_start=$(( $(awk '/packages:/{ print NR; exit }' $FILE) +1))
 in_yaml_file_pkgs=$(cat <<EOF> in_yaml_file_pkgs.txt
-$(tail -n +$pkgs_start $FILE | awk -F= '{print $1}' | awk -F "- " '{print $NF }')
+$(tail -n +$pkgs_start $FILE | awk -F= '{print $1}' | awk -F "- " '{print $NF }'|sort)
 EOF
 )
 
-expected_pkgs=$(cat <<EOF> expected_pkgs.txt
+expected_pkgs=$(sort cat <<EOF> expected_pkgs.txt
 adduser
 apparmor
 apt
@@ -249,8 +248,7 @@ zlib1g:amd64
 EOF
 )
 
-DIFF=$(comm -1 -3 in_yaml_file_pkgs.txt expected_pkgs.txt)
-DIFF1=$(comm -1 -3 expected_pkgs.txt in_yaml_file_pkgs.txt)
+DIFF=$(comm in_yaml_file_pkgs.txt expected_pkgs.txt)
 echo $DIFF
 echo $DIFF1
 
@@ -265,6 +263,6 @@ else
   exit 1
 fi
 
-# cleanup temp files used for comparisons 
+# cleanup temp files used foe comparisons 
 rm -f expected_pkgs.txt
 rm -f in_yaml_file_pkgs.txt
