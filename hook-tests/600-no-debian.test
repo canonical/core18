@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -e
 #
 # test for hook that creates dpkg.yaml used for OSS compliance
 
@@ -20,17 +20,18 @@ then
 else 
   echo "Error! PPA section of dpkg.yaml not as expected."
   echo "If that is intentional, please update the ppa_section content in the"
-  echo "test file: core18/hook-tests/602-create-dpkg-yaml.test."
+  echo "test file: core18/hook-tests/600-no-debian.test."
   exit 1
 fi
 
+#third check the Packages section of dpkg.yaml
 pkgs_start=$(( $(awk '/packages:/{ print NR; exit }' $FILE) +1))
 in_yaml_file_pkgs=$(cat <<EOF> in_yaml_file_pkgs.txt
-$(tail -n +$pkgs_start $FILE | awk -F= '{print $1}' | awk -F "- " '{print $NF }'|sort)
+$(tail -n +$pkgs_start $FILE | awk -F= '{print $1}' | awk -F "- " '{print $NF }')
 EOF
 )
 
-expected_pkgs=$(sort cat <<EOF> expected_pkgs.txt
+expected_pkgs=$(cat <<EOF> expected_pkgs.txt
 adduser
 apparmor
 apt
@@ -248,9 +249,10 @@ zlib1g:amd64
 EOF
 )
 
+sort in_yaml_file_pkgs.txt
+sort expected_pkgs.txt
+
 DIFF=$(comm in_yaml_file_pkgs.txt expected_pkgs.txt)
-echo $DIFF
-echo $DIFF1
 
 if [ -n "$DIFF" ]; then
   echo "Content of Packages section in dpkg.yaml file is as expected."
@@ -259,10 +261,10 @@ else
   echo $DIFF
   echo "If that is intentional, please update the packages_section "
   echo "content in the "
-  echo "test file: core18/hook-tests/602-create-dpkg-yaml.test."
+  echo "test file: core18/hook-tests/600-no-debian.test."
   exit 1
 fi
 
-# cleanup temp files used foe comparisons 
+# cleanup temp files used for comparisons 
 rm -f expected_pkgs.txt
 rm -f in_yaml_file_pkgs.txt
