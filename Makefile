@@ -40,10 +40,11 @@ install:
 		rm -f $(DESTDIR)/tmp/$$(basename $$f); \
 	done;
 
-	# only generate manifest file for lp build
+	# only generate manifest and dpkg.yaml file for lp build
 	if [ -e /build/core18 ]; then \
 		echo $$f; \
 		/bin/cp $(DESTDIR)/usr/share/snappy/dpkg.list /build/core18/core18-$$(date +%Y%m%d%H%M)_$(DPKG_ARCH).manifest; \
+		/bin/cp $(DESTDIR)/usr/share/snappy/dpkg.yaml /build/core18/core18-$$(date +%Y%m%d%H%M)_$(DPKG_ARCH).dpkg.yaml; \
 	fi;
 
 .PHONY: check
