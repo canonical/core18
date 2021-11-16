@@ -11,9 +11,9 @@ For i386 and amd64
 $ sudo snapcraft
 ```
 
-For any other architecture we recommend remote-build as multipass has very limited
-support for cross-building, and other architectures. To use remote-build you need to 
-have a launchpad account, and follow the instructions [here](https://snapcraft.io/docs/remote-build)
+For any other architecture we recommend remote-build as multipass has limited
+support for cross-building, and lack of stable releases for some architectures. 
+To use remote-build you need to have a launchpad account, and follow the instructions [here](https://snapcraft.io/docs/remote-build)
 ```
 $ sudo snapcraft remote-build --build-on={arm64,armhf,ppc64el,s390x}
 ```
