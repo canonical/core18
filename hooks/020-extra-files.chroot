@@ -35,3 +35,7 @@ mkdir -p /var/lib/cloud
 
 echo "ensure snapctl is available"
 ln -s ../lib/snapd/snapctl /usr/bin/snapctl
+
+echo "set static file and folder permissions"
+chmod 0755 /etc/systemd/system.conf.d
+chmod 0644 /etc/systemd/system.conf.d/11-snapd-ctrl-alt-del-burst.conf

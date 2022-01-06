@@ -2,3 +2,7 @@
 
 test -d /snap
 test -d /var/snap
+
+echo "test static file and folder permissions"
+test "$(stat etc/systemd/system.conf.d -c %a)" = "755"
+test "$(stat etc/systemd/system.conf.d/11-snapd-ctrl-alt-del-burst.conf -c %a)" = "644"
