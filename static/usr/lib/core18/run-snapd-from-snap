@@ -18,7 +18,7 @@ run_on_unseeded() {
     # the seeding and as part of this will restart snapd
     # which will give it the right systemd unit.
     TMPD=$(mktemp -d)
-    trap "umount $TMPD; rmdir $TMPD" EXIT
+    trap "umount -l $TMPD; rmdir $TMPD" EXIT
     mount "$SEED_SNAPD" "$TMPD"
 
     # We need to initialize /snap/snapd/current symlink so that the
