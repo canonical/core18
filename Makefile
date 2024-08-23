@@ -40,8 +40,13 @@ install:
 		rm -f $(DESTDIR)/tmp/$$(basename $$f); \
 	done;
 	
-	# refresh the previous core18 base snap
-	snap refresh core18 --beta
+	# install the beta of core18 to generate the changelog against,
+	# or if the snap is installed refresh it
+	if snap list | grep "core18"; then \
+		snap refresh core18 --beta; \
+	else \
+		snap install core18 --beta; \
+	fi
 
 	# generate the changelog, for this we need the previous core snap
 	# to be installed, this should be handled in snapcraft.yaml
