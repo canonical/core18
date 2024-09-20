@@ -13,6 +13,7 @@ parts:
     source: .
     build-packages:
       - shellcheck
+      - git
       - wget
       - python3-debian
       - python3-requests
