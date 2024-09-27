@@ -94,6 +94,8 @@ test:
 				exit 1; \
 			fi; \
 	    	done; \
+	# no extra files in the rootdir
+	set -ex; find $(TESTDIR) -maxdepth 1 -type f -print -execdir false {} +
 
 # Display a report of files that are (still) present in /etc
 .PHONY: etc-report
