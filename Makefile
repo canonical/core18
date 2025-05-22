@@ -32,6 +32,10 @@ install:
 		mknod -m 666 $(DESTDIR)/dev/urandom c 1 9
 	# copy static files verbatim
 	/bin/cp -a static/* $(DESTDIR)
+	# Make sure we have ESM sources in the chroot
+	set -x; cat $(DESTDIR)/etc/apt/sources.list
+	cp /etc/apt/trusted.gpg.d/* $(DESTDIR)/etc/apt/trusted.gpg.d/
+	/bin/cp /etc/apt/sources.list $(DESTDIR)/etc/apt/
 	# customize
 	set -ex; for f in ./hooks/[0-9]*.chroot; do \
 		/bin/cp -a $$f $(DESTDIR)/tmp && \
@@ -40,7 +44,7 @@ install:
                 fi && \
 		rm -f $(DESTDIR)/tmp/$$(basename $$f); \
 	done;
-	
+
 	# install the beta of core18 to generate the changelog against,
 	# or if the snap is installed refresh it
 	if snap list | grep "$(SNAP_NAME)"; then \
