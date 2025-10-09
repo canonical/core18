@@ -6,6 +6,9 @@ description: |
 confinement: strict
 type: base
 build-base: core18
+# Ensure snapd with apparmor service
+assumes:
+  - snapd2.61
 
 parts:
   bootstrap:
