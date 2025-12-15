@@ -40,9 +40,11 @@ from collections import namedtuple
 # keep the list short to not increase the time it takes
 # to generate changelogs
 pkg_allowed_list = [
-    'apt',            # removed during hook
-    'libapt-pkg5.0',  # removed during hook
-    'debconf'         # removed during hook
+    'apt',              # removed during hook
+    'libapt-pkg5.0',    # removed during hook
+    'debconf',          # removed during hook
+    'distro-info-data', # ESM re-uploaded the exact same version of the package
+                        # but without the changelog. Shame!
 ]
 
 
