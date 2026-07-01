@@ -46,3 +46,33 @@ $ make update-image
 With this available you can either run: `spread -debug -v` or `make -C
 tests/lib just-boot`, depending on what you want to do. The interactive (just
 boot) test should allow you to move to VT7 where a root shell awaits.
+
+# ChangeLog
+
+Each release of the base snap includes a ChangeLog at
+`/usr/share/doc/ChangeLog` that summarises the package updates bundled in
+that release, along with the aggregated updates from previous releases.
+
+## When the snap is already installed
+
+If the base snap is already installed on the system, the ChangeLog is available
+at `/snap/core18/current/usr/share/doc/ChangeLog`.
+
+You can list all installed revisions with `snap list --all core18`. To inspect
+a specific revision that is not the active one, replace `current` with the
+revision number (e.g. `/snap/core18/1234/usr/share/doc/ChangeLog`).
+
+## Via `snap download`
+
+You can download a snap without installing it, then extract the
+ChangeLog from the squashfs image:
+
+```bash
+# Download the snap
+snap download core18
+
+# Extract the changelog into a local directory
+unsquashfs -d core18-unpacked core18*.snap usr/share/doc/ChangeLog
+```
+
+The ChangeLog is then available at `core18-unpacked/usr/share/doc/ChangeLog`.
