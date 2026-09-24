@@ -21,3 +21,14 @@ jobs:
       with:
         name: snap
         path: ${{ steps.snapcraft.outputs.snap }}
+    - name: Install CVE scanner
+      run: |
+        sudo snap install review-tools
+    - name: run CVE scanner
+      run: |
+        # this produces a table of detected CVEs and their severity
+        review-tools.scan-snap "${{ steps.snapcraft.outputs.snap }}" > "${{ github.workspace }}/cve-scan.txt"
+    - uses: actions/upload-artifact@v4
+      with:
+        name: cve-scan
+        path: "${{ github.workspace }}/cve-scan.txt"
