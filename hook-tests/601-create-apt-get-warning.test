@@ -6,4 +6,5 @@ echo "All apt command should provide a failure"
 for cmd in apt apt-get apt-cache; do
     ! chroot . $cmd > stdout
     grep -q "Ubuntu Core does not use apt-get" stdout
+    rm -f stdout
 done
